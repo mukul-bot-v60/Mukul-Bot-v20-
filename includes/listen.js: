@@ -1,0 +1,32 @@
+module.exports = function(api, handlers) {
+  api.listenMqtt((err, event) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    switch (event.type) {
+      case "message":
+      case "message_reply":
+        if (handlers.handleCommand) {
+          handlers.handleCommand(event);
+        }
+        if (handlers.handleReply) {
+          handlers.handleReply(event);
+        }
+        break;
+
+      case "event":
+        if (handlers.handleEvent) {
+          handlers.handleEvent(event);
+        }
+        break;
+
+      case "message_reaction":
+        if (handlers.handleReaction) {
+          handlers.handleReaction(event);
+        }
+        break;
+    }
+  });
+};
