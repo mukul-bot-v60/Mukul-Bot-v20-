@@ -1,0 +1,17 @@
+{
+  "name": "mukul-bot",
+  "version": "1.0.0",
+  "description": "MUKUL BOT TIM",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "bot",
+    "messenger",
+    "nodejs"
+  ],
+  "author": "Mukul",
+  "license": "MIT",
+  "dependencies": {}
+}
