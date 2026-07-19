@@ -4,10 +4,10 @@ module.exports = {
 
   run({ config, reply }) {
     reply(
-`🤖 ${config.DANZAR BOT}
+`🤖 ${config.botName}
 
 Version: 1.0.0
-Developer: ${config.SM-MUKUL-BOSS}
+Developer: ${config.owner}
 
 Thank you for using this bot ❤️`
     );
