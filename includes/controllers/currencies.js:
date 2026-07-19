@@ -1,0 +1,35 @@
+const currencies = new Map();
+
+module.exports = {
+  async get(userID) {
+    return currencies.get(userID) || { money: 0 };
+  },
+
+  async set(userID, data) {
+    currencies.set(userID, data);
+    return true;
+  },
+
+  async getMoney(userID) {
+    const data = currencies.get(userID);
+    return data ? data.money : 0;
+  },
+
+  async increaseMoney(userID, amount) {
+    const data = currencies.get(userID) || { money: 0 };
+    data.money += amount;
+    currencies.set(userID, data);
+    return data.money;
+  },
+
+  async decreaseMoney(userID, amount) {
+    const data = currencies.get(userID) || { money: 0 };
+    data.money = Math.max(0, data.money - amount);
+    currencies.set(userID, data);
+    return data.money;
+  },
+
+  async getAll() {
+    return [...currencies.values()];
+  }
+};
