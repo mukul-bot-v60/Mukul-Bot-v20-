@@ -1,0 +1,28 @@
+module.exports = async function(api, event) {
+  switch (event.logMessageType) {
+
+    case "log:subscribe":
+      api.sendMessage(
+        "👋 গ্রুপে নতুন সদস্যকে স্বাগতম!",
+        event.threadID
+      );
+      break;
+
+    case "log:unsubscribe":
+      api.sendMessage(
+        "😢 একজন সদস্য গ্রুপ ত্যাগ করেছেন।",
+        event.threadID
+      );
+      break;
+
+    case "log:thread-name":
+      api.sendMessage(
+        "📝 গ্রুপের নাম পরিবর্তন করা হয়েছে।",
+        event.threadID
+      );
+      break;
+
+    default:
+      break;
+  }
+};
