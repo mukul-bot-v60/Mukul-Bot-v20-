@@ -1,0 +1,26 @@
+module.exports = async function(api, event, Reaction) {
+  if (!Reaction || !Array.isArray(Reaction)) return;
+
+  const reactionData = Reaction.find(
+    item => item.messageID === event.messageID
+  );
+
+  if (!reactionData) return;
+
+  try {
+    if (typeof reactionData.callback === "function") {
+      await reactionData.callback({
+        api,
+        event,
+        data: reactionData
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    api.sendMessage(
+      "❌ Reaction handle করতে সমস্যা হয়েছে।",
+      event.threadID,
+      event.messageID
+    );
+  }
+};
