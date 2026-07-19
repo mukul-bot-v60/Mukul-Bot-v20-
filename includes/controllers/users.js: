@@ -1,0 +1,29 @@
+const users = new Map();
+
+module.exports = {
+  async get(uid) {
+    return users.get(uid) || null;
+  },
+
+  async set(uid, data) {
+    users.set(uid, data);
+    return true;
+  },
+
+  async getName(uid) {
+    const user = users.get(uid);
+    return user ? user.name : "Unknown User";
+  },
+
+  async exists(uid) {
+    return users.has(uid);
+  },
+
+  async remove(uid) {
+    return users.delete(uid);
+  },
+
+  async getAll() {
+    return [...users.values()];
+  }
+};
