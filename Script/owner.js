@@ -6,8 +6,8 @@ module.exports = {
     reply(
 `╭──『 BOT OWNER 』
 │ 👤 Owner : ${config.owner}
-│ 🤖 Bot   : ${config.SM MUKUL BOSS}
-│ 🔰 Prefix: ${config..}
+│ 🤖 Bot   : ${config.botName}
+│ 🔰 Prefix: ${config.prefix}
 ╰────────────────`
     );
   }
