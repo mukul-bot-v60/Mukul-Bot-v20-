@@ -1,0 +1,42 @@
+const fs = require("fs");
+const path = require("path");
+
+module.exports = async function(api, event) {
+  if (!event.body) return;
+
+  const prefix = "!";
+  if (!event.body.startsWith(prefix)) return;
+
+  const args = event.body.slice(prefix.length).trim().split(/\s+/);
+  const commandName = args.shift().toLowerCase();
+
+  const commandPath = path.join(__dirname, "../scripts", `${commandName}.js`);
+
+  if (!fs.existsSync(commandPath)) {
+    return api.sendMessage(
+      `❌ Command "${commandName}" not found.`,
+      event.threadID,
+      event.messageID
+    );
+  }
+
+  try {
+    delete require.cache[require.resolve(commandPath)];
+    const command = require(commandPath);
+
+    if (typeof command.run === "function") {
+      await command.run({
+        api,
+        event,
+        args
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    api.sendMessage(
+      "⚠️ An error occurred while executing the command.",
+      event.threadID,
+      event.messageID
+    );
+  }
+};
