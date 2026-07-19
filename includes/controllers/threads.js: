@@ -1,0 +1,33 @@
+const threads = new Map();
+
+module.exports = {
+  async get(threadID) {
+    return threads.get(threadID) || null;
+  },
+
+  async set(threadID, data) {
+    threads.set(threadID, data);
+    return true;
+  },
+
+  async exists(threadID) {
+    return threads.has(threadID);
+  },
+
+  async remove(threadID) {
+    return threads.delete(threadID);
+  },
+
+  async getAll() {
+    return [...threads.values()];
+  },
+
+  async update(threadID, newData) {
+    const oldData = threads.get(threadID) || {};
+    threads.set(threadID, {
+      ...oldData,
+      ...newData
+    });
+    return true;
+  }
+};
